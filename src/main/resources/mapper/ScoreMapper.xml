@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xindijia.mapper.ScoreMapper">
+    <select id="getTotalCreditBySid" resultType="java.lang.Double">
+        SELECT SUM(credit)
+        FROM score
+        WHERE sid = #{sid}
+    </select>
+    <select id="countByCategoryScore" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `score`
+        WHERE sid IN (SELECT sid FROM `student` WHERE s_class = #{clazzId})
+          AND score >= #{start}
+          AND score &lt; #{end}
+          AND course_id = #{courseId}
+    </select>
+</mapper>

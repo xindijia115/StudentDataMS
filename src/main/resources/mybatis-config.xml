@@ -19,5 +19,6 @@
         <mapper class="xindijia.mapper.ScoreMapper"/>
         <mapper class="xindijia.mapper.StudentMapper"/>
         <mapper class="xindijia.mapper.UserMapper"/>
+        <mapper resource="mapper/ScoreMapper.xml"/>
     </mappers>
 </configuration>

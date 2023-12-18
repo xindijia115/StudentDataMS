@@ -12,13 +12,15 @@ public class LoginController extends BaseController{
 
     private UserService userService = new UserServiceImpl();
 
-    public void login(String number, String password) {
+    public boolean login(String number, String password) throws Exception{
         try {
             userService.login(number, password);
             alert("成功提示", "登录成功!", null, Alert.AlertType.INFORMATION);
+            return true;
         } catch (Exception e) {
             String message = e.getMessage();
             alert("错误提示", message, null, Alert.AlertType.ERROR);
         }
+        return false;
     }
 }

@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import xindijia.controller.CourseController;
@@ -25,6 +27,7 @@ import xindijia.view.BottomView;
 import xindijia.view.TopView;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author xia
@@ -59,24 +62,29 @@ public class Main extends Application {
         TabPane tabPane = new TabPane();
         //学生栏
         Tab studentTab = new Tab("学生");
+        studentTab.setStyle("-fx-text-fill: darkblue; -fx-font-size: 14px;");
         studentTab.setClosable(false);
         VBox studentBox = new VBox(10);
         Button add = new Button("添加学生");
+        add.setFont(Font.font(16));
         add.setOnAction(event -> {
             studentController.addStudent();
         });
 
         Button update = new Button("修改信息");
+        update.setFont(Font.font(16));
         update.setOnAction(event -> {
             studentController.updateStudent();
         });
 
         Button delete = new Button("删除学生");
+        delete.setFont(Font.font(16));
         delete.setOnAction(event -> {
             studentController.deleteStudent();
         });
 
         Button select = new Button("查询信息");
+        select.setFont(Font.font(16));
         select.setOnAction(event -> {
             studentController.selectStudent();
         });
@@ -89,18 +97,22 @@ public class Main extends Application {
 
         //课程栏
         Tab courseTab = new Tab("课程");
+        courseTab.setStyle("-fx-text-fill: darkblue; -fx-font-size: 14px;");
         courseTab.setClosable(false);
         VBox courseBox = new VBox(10);
 
         Button addCourse = new Button("添加课程");
+        addCourse.setFont(Font.font(16));
         addCourse.setOnAction(event -> {
             courseController.addCourse();
         });
         Button updateCourse = new Button("修改课程");
+        updateCourse.setFont(Font.font(16));
         updateCourse.setOnAction(event -> {
             courseController.updateCourse();
         });
         Button deleteCourse = new Button("删除课程");
+        deleteCourse.setFont(Font.font(16));
         deleteCourse.setOnAction(event -> {
             courseController.deleteCourse();
         });
@@ -112,18 +124,22 @@ public class Main extends Application {
 
         //成绩栏
         Tab scoreTab = new Tab("成绩");
+        scoreTab.setStyle("-fx-text-fill: darkblue; -fx-font-size: 14px;");
         scoreTab.setClosable(false);
         VBox scoreBox = new VBox(10);
 
         Button addScore = new Button("添加成绩");
+        addScore.setFont(Font.font(16));
         addScore.setOnAction(event -> {
             scoreController.addScore();
         });
         Button updateScore = new Button("修改成绩");
+        updateScore.setFont(Font.font(16));
         updateScore.setOnAction(event -> {
             scoreController.updateScore();
         });
         Button deleteScore = new Button("删除成绩");
+        deleteScore.setFont(Font.font(16));
         deleteScore.setOnAction(event -> {
             scoreController.deleteScore();
         });
@@ -282,6 +298,25 @@ public class Main extends Application {
         stage.setTitle("学生管理系统");
         stage.setResizable(false);
         stage.show();
+
+        Platform.setImplicitExit(false);//取消操作系统默认退出事件
+        //窗口事件
+        stage.setOnCloseRequest(event -> {
+            //取消右上角X关闭窗口事件
+            event.consume();
+            //创建一个弹窗
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("退出程序");
+            alert.setHeaderText(null);
+            alert.setContentText("你是否要退出程序?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                //退出程序
+                Platform.exit();
+                //关闭窗口，不退出程序
+                //stage.close();
+            }
+        });
     }
 
     public static void main(String[] args) {

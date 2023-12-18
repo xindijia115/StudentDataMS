@@ -24,6 +24,16 @@ public class BaseController {
      * 检测ID合法
      */
     public boolean checkIdIllegal(String sid) {
+        try {
+            Integer.parseInt(sid);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("输入的数据不合法！");
+            alert.showAndWait();
+            return true;
+        }
         if (sid.length() >= 10 || "".equals(sid)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

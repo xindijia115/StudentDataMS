@@ -56,4 +56,18 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
         mapper.delete(scoreLambdaUpdateWrapper);
         sqlSession.commit();
     }
+
+    @Override
+    public Double getTotalCreditById(int sid) {
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        ScoreMapper mapper = sqlSession.getMapper(ScoreMapper.class);
+        return mapper.getTotalCreditBySid(sid);
+    }
+
+    @Override
+    public Integer countByCategoryScore(int start, int end, int clazzId, int courseId) {
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        ScoreMapper mapper = sqlSession.getMapper(ScoreMapper.class);
+        return mapper.countByCategoryScore(start, end, clazzId, courseId);
+    }
 }

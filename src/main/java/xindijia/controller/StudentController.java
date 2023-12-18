@@ -86,6 +86,7 @@ public class StudentController extends BaseController{
         Optional<String> result = textInputDialog.showAndWait();
         if (result.isPresent()) {
             if (checkIdIllegal(result.get())) {//id不合法
+
                 return;
             }
 
@@ -134,8 +135,10 @@ public class StudentController extends BaseController{
                 });
 
                 Optional<Student> results = dialog.showAndWait();
-                results.ifPresent(student1 -> studentService.updateStudent(student1));
-                alert("成功提示", "成功修改学号为【" + student.getSid() + "】的学生数据！", null, Alert.AlertType.INFORMATION);
+                results.ifPresent(student1 -> {
+                    studentService.updateStudent(student1);
+                    alert("成功提示", "成功修改学号为【" + student.getSid() + "】的学生数据！", null, Alert.AlertType.INFORMATION);
+                });
             } else {
                 alert("错误提示", "没有该学生的记录，无法修改！", null, Alert.AlertType.ERROR);
             }

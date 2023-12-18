@@ -19,4 +19,10 @@ public interface ScoreService extends IService<Score> {
     void updateScore(Score score);
 
     void deleteScore(int sid, int cid);
+
+    //统计学分
+    Double getTotalCreditById(int sid);
+
+    //分析得分分布
+    Integer countByCategoryScore(int start, int end, int clazzId, int courseId);
 }
